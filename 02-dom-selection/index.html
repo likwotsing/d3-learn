@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>First paragraph</p>
+  <p>Second paragraph</p>
+  <table>
+    <tr>
+      <td>One</td>
+      <td>Two</td>
+    </tr>
+    <tr>
+      <td>Three</td>
+      <td>Four</td>
+    </tr>
+  </table>
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    d3.select('p').style('color', 'green')
+
+    // 嵌套
+    d3.select('tr').selectAll('td').style('background-color', '#4079EE')
+  </script>
+</body>
+</html>
