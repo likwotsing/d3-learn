@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    // csv
+    d3.csv('./employees.csv', function(d, i) {
+      return {
+        name: d.Name,
+        age: d.Age.toLowerCase()
+      }
+    }).then(data => {
+        console.log(data)
+      })
+    
+    // json
+    d3.json('./users.json').then(data => {
+        console.log(data)
+        // 使用获取的数据
+        d3.select('body')
+          .selectAll('p')
+          .data(data)
+          .enter()
+          .append('p')
+          .text(function(d) {
+            return d.name + ', ' + d.location
+          })
+      })
+    
+    // tsv
+    d3.tsv('./employees.tsv').then(data => {
+      console.log(data)
+    })
+
+    // xml
+    d3.xml('./employees.xml').then(data => {
+      console.log(data)
+    })
+  </script>
+</body>
+</html>
