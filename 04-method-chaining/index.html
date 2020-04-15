@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    var bodyElement = d3.select('body')
+    var paragraph = bodyElement.append('p')
+    paragraph.text('hello world')
+
+    // 链式写法
+    d3.select('body')
+      .append('p')
+      .text('chain syntax')
+  </script>
+</body>
+</html>
