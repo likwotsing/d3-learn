@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box1 {
+      height: 100px;
+    }
+    svg rect {
+      fill: #409EFF
+    }
+    svg text {
+      fill: white;
+      font: 10px sans-serif;
+      text-anchor: end;
+    }
+  </style>
+</head>
+<body>
+  <div class="box1"></div>
+  <!-- <svg class="chart" width="420" height="120">
+    <g transform="translate(0,0)">
+      <rect width="50" height="19"></rect>
+      <text x="47" y="9.5" dy=".35em">5</text>
+    </g>
+    <g transform="translate(0,20)">
+      <rect width="100" height="19"></rect>
+      <text x="97" y="9.5" dy=".35em">10</text>
+    </g>
+    <g transform="translate(0,40)">
+      <rect width="120" height="19"></rect>
+      <text x="117" y="9.5" dy=".35em">12</text>
+    </g>
+  </svg> -->
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    // 使用d3创建chart
+    var data = [5, 10, 12]
+    var width = 200
+    var height = 120
+    var scaleFactor = 10
+    var barHeight = 20
+
+    var graph = d3.select('body')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', barHeight * data.length)
+    
+    var bar = graph.selectAll('g')
+      .data(data)
+      .enter()
+      .append('g')
+      .attr('transform', function(d, i) {
+        return 'translate(0, ' + i * barHeight + ')'
+      })
+    
+    bar.append('rect')
+      .attr('width', function(d) {
+        return d * scaleFactor
+      })
+      .attr('height', barHeight - 1)
+    
+    bar.append('text')
+      .attr('x', function(d) {
+        return d * scaleFactor
+      })
+      .attr('y', barHeight / 2)
+      .attr('dy', '.25em')
+      .text(function(d) {
+        return d
+      })
+  </script>
+</body>
+</html>
