@@ -4,17 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .error {
+      color: red;
+    }
+    .normal {
+      color: #4079EE;
+    }
+    .success {
+      color: #67C23A;
+    }
+  </style>
 </head>
 <body>
   <div style="border:1px solid">
     <p>First paragraph.</p>
   </div>
-  
+  <div class="error">
+    <p>Error: This is dummy error.</p>
+  </div>
+  <!-- property和attr -->
+  <div id="div1" class="divClass" title="divTitle" title1="divTitle1"></div>
+
+  <div class="property">
+    <p>D3 <label for=""></label> </p>
+  </div>
+
   <script src="../d3.v5.min.js"></script>
   <script>
     d3.select('div').append('p').text('Second paragraph.')
     d3.select('div').insert('p').text('Third paragraph.')
     
+    // attr()
+    d3.select('.error').select('p').attr('class', 'error')
+    // 使用property，设置class为normal不起作用
+    d3.select('.error').select('p').property('class', 'normal')
+    // 需要使用classList，因为property设置的是DOM对象上的属性，而DOM对象上只有classList没有class。
+    // 需要注意的是，使用attr/property设置class时，是替换全部的class，而不是新增/减少某个class
+    d3.select('.error').select('p').property('classList', 'normal')
+    // 使用classed设置class时，不是替换全部的class，而是新增/删除某一个class
+    d3.select('.error').select('p').classed('success', true)
+
+
+    // property和attr
+    var div1 = document.getElementById('div1')
+    console.dir(div1)
   </script>
 </body>
 </html>
