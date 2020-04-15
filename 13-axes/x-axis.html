@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    var width = 400
+    var height = 100
+    var data = [10, 15, 20, 25, 30]
+    
+    // append svg
+    var svg = d3.select('body')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    
+    // create scale
+    var scale = d3.scaleLinear()
+      // .domain([d3.min(data), d3.max(data)])
+      .domain(d3.extent(data))
+      .range([0, width - 100])
+
+    // add scales to axis
+    var xAxis = d3.axisBottom()
+      .scale(scale)
+    
+    // append group and insert axis
+    svg.append('g')
+      .call(xAxis)
+  </script>
+</body>
+</html>
