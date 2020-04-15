@@ -57,3 +57,21 @@ d3.selection.on(type, [, listener[, capture]])
 ```
 
 - 事件默认是冒泡。通过设置第三个参数capture来改变。
+
+
+
+## 10-create-svg-elements
+
+Each SVG element has it's own properties - which includes both geometry and style properties. All properties can be set as attributes but generally, we provide geometry properties as attributes and styling properties as styles.
+
+The default SVG color is black fill width no stroke.
+
+| style attribute | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| fill            | This is the fill color for your element. It can be color name, hex value, or RGB or RGBA values. |
+| stroke          | This is the stroke color. Like our line example above, we can specify a color for our element. |
+| stroke-width    | Stroke width specifies the width of our line or boundary. This is in pixels. |
+| opacity         | Opacity will specify an opacity/transparency number. 0 is completely transparent and 1 is completely opaque. |
+| font-family     | For text elements, we can specify the font-family. This works like CSS. |
+| font-size       | We can also specify the font-size for text elements.         |
+
