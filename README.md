@@ -48,3 +48,12 @@ radio.getAttribute('checked') // anything
 radio.checked // true
 ```
 
+
+
+## 06-event-handling
+
+```js
+d3.selection.on(type, [, listener[, capture]])
+```
+
+- 事件默认是冒泡。通过设置第三个参数capture来改变。
