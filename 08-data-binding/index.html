@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>D3 tutorials</p>
+  <p>2</p>
+  <p>3</p>
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    // enter()
+    var data = [4, 1, 6, 2, 8, 9]
+    var body = d3.select('body')
+      .selectAll('span')
+      .data(data)
+      .enter()
+      .append('span')
+      .text(function(d) {
+        return d + ' '
+      })
+      .style('color', function(d, i) {
+        if (d % 2 === 0) {
+        // if (i % 2 === 0) {
+          return 'green'
+        } else {
+          return 'red'
+        }
+      })
+    
+    // 二维数组
+    var matrix = [
+      [1, 2, 3, 4],
+      [5, 6, 7, 8],
+      [9, 10, 11, 12],
+      [13, 14, 15, 16]
+    ]
+    var tr = d3.select('body')
+      .append('table')
+      .selectAll('tr')
+      .data(matrix)
+      .enter()
+      .append('tr')
+    
+    var td = tr.selectAll('td')
+      .data(function(d) {
+        console.log('from data: ', d)
+        return d
+      })
+      .enter()
+      .append('td')
+      .text(function(d) {
+        console.log('from text: ', d)
+        return d
+      })
+    
+    // exit()
+    var exitData = ['Hello World!']
+    var p = d3.select('body')
+      .selectAll('p')
+      .data(exitData)
+      .text(function(d) {
+        return d
+      })
+      .exit()
+      .remove()
+  </script>
+</body>
+</html>
