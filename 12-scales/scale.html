@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    var data = [100, 400, 300, 900, 850, 1000]
+    var scale = d3.scaleLinear()
+      // .domain([100, 1000])
+      .domain([d3.min(data), d3.max(data)])
+      // .domain(d3.extent(data))
+      .range([50, 500])
+    console.log(scale(200))
+  </script>
+</body>
+</html>

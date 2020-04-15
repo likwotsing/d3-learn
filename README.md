@@ -75,3 +75,8 @@ The default SVG color is black fill width no stroke.
 | font-family     | For text elements, we can specify the font-family. This works like CSS. |
 | font-size       | We can also specify the font-size for text elements.         |
 
+## 12-scales
+
+Domain: Domain denotes minimum and maximum values of your **input** data.
+
+Range: Range is the **output** range that you would like your input values to map to.
