@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #container, #box1 {
+      width: 100px;
+      height: 100px;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <div id="box1"></div>
+  <script src="../d3.v5.min.js"></script>
+  <script>
+    d3.interval(changeColor, 1000)
+    function changeColor() {
+      d3.select('#container')
+        .transition()
+        .duration(1000)
+        .style('background-color', function() {
+          if (d3.select(this).style('background-color') === 'rgb(0, 0, 0)') {
+            return 'rgb(255, 0, 0)'
+          } else {
+            return 'rgb(0, 0, 0)'
+          }
+        })
+    }
+
+    // 把transition保存成一个变量，供以后使用
+    var t = d3.transition().duration(2000)
+
+    d3.select('#box1')
+      .transition(t)
+      .style('background-color', 'red')
+
+    
+    // delay
+    var svg = d3.select('body')
+      .append('svg')
+      .attr('width', 500)
+      .attr('height', 500)
+    var bar1 = svg.append('rect')
+      .attr('x', 100)
+      .attr('y', 20)
+      .attr('width', 10)
+      .attr('height', 20)
+      .attr('fill', 'blue')
+    var bar2 = svg.append('rect')
+      .attr('x', 120)
+      .attr('y', 20)
+      .attr('width', 10)
+      .attr('height', 20)
+      .attr('fill', 'blue')
+    
+    update()
+
+    function update() {
+      bar1.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .attr('height', 100)
+      
+      bar2.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .delay(2000)
+        .attr('height', 100)
+    }
+  </script>
+</body>
+</html>
