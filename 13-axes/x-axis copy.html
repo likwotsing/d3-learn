@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 100px;
+    }
+  </style>
+</head>
+<body>
+  
+  <script src="../d3.v5.min.js"></script>
+  <script src="./moment.js"></script>
+  <script>
+    var width = 900
+    var height = 100
+    // var data = [10, 15, 20, 25, 30]
+    var data = ['2020-01-01', '2020-01-08', '2020-01-15', '2020-01-22', '2020-01-29']
+    var startDate = '2020-01-01'
+    var orignalDates = getDate(startDate, 5)
+    var lastDates = orignalDates
+
+    var lastClick = ''
+
+    function getDate (start, n) {
+      var arr = []
+      var current = start
+      while(n > 0) {
+        arr.push(current)
+        current = moment(current).add(1, 'weeks').format('YYYY-MM-DD')
+        n--
+      }
+      return arr
+    }
+
+    function getUpdateDate(dates, clickDate) {
+      var arr = []
+      // 更新日期个数
+      var current = dates[0]
+      var count = dates.length
+      while(count > 0) {
+        if (current === clickDate) {
+          count--
+          for(var i = 0; i < 7; i++) {
+            arr.push(current)
+            current = moment(current).add(1, 'days').format('YYYY-MM-DD')
+          }
+        } else {
+          arr.push(current)
+          current = current = moment(current).add(1, 'weeks').format('YYYY-MM-DD')
+          count--
+        }
+      }
+      return arr
+    }
+
+    function clickDate() {
+      var text = d3.select(this).text()
+      // 点击日期
+      // 1. 若在dates中不存在，则还原初始坐标dates
+      // 2. 若在dates中存在，是否在lastClick及7天内存在
+      // 若存在，还原初始坐标dates；
+      // 否则：赋值新的lastClick，更新坐标轴
+      if (isUnfold()) {
+        // 展开
+        if (isInLastWeek(text, lastClick)) {
+          // 点击的日期，在7天内
+          text = ''
+          updateXAxis(text)
+        } else {
+          updateXAxis(text)
+        }
+      } else {
+        // 未展开
+        updateXAxis(text)
+        // var newDates = getUpdateDate(orignalDates, currentClick, false)
+        // renderXAxis(newDates)
+      }
+    }
+    
+    function updateXAxis(text) {
+      lastClick = text
+      lastDates = getUpdateDate(orignalDates, lastClick)
+      renderXAxis(lastDates)
+    }
+    function isUnfold() {
+      return !(orignalDates.length === lastDates.length)
+    }
+    function isClickInDates(click, dates) {
+      var lastClick = currentClick
+      return dates.includes(click)
+    }
+    function isInLastWeek(cClick, lClick) {
+      // 是否在上一次点击的7天内
+      var arr = []
+      for(var i = 0; i < 7; i++) {
+        arr.push(lClick)
+        lClick = moment(lClick).add(1, 'days').format('YYYY-MM-DD')
+      }
+      return arr.includes(cClick)
+    }
+    // append svg
+    var svg = d3.select('body')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    
+    var g = svg.append('g')
+      .attr('fill', 'none')
+      .attr('font-size', '10')
+      .attr('font-family', 'sans-seirf')
+      .attr('text-anchor', 'middle')
+    
+    g.append('path')
+      .attr('class', 'domain')
+      .attr('stroke', 'currentColor')
+      // .attr('d', 'M0.5,6V0.5H300.5V6')
+      .attr('d', 'M30,6 V0.5 H' + (width - 100 + 30) + 'V6')
+
+    renderXAxis(orignalDates)
+
+    function renderXAxis(dates) {
+      // 先删除已存在的tick
+      d3.selectAll('.tick')
+        .remove()
+
+      dates.forEach((c, i, a) => {
+        var tick = g.append('g')
+          .attr('class', 'tick')
+          .attr('opacity', '1')
+          .attr('transform', 'translate(' + (30 + i * (width - 100) / (a.length - 1)) + ',0)')
+        tick.append('line')
+          .attr('stroke', 'currentColor')
+          .attr('y2', '6')
+        tick.append('text')
+          .attr('fill', 'currentColor')
+          .attr('y', '9')
+          .attr('dy', '0.71em')
+          .text(c)
+          .on('click', clickDate)
+      })
+    }
+
+  </script>
+</body>
+</html>
